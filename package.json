@@ -9,9 +9,16 @@
     "test:e2e:ui": "npx playwright test --ui",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:deploy": "npx prisma migrate deploy && npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev --name",
+    "prisma:push": "npx prisma db push && npx prisma generate",
+    "prisma:setup": "prisma generate && prisma migrate deploy && prisma db push",
+    "prisma:studio": "npx prisma studio",
+    "prisma:wipe": "npx prisma migrate reset --force && npx prisma db push"
   },
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -36,6 +43,7 @@
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "prisma": "^6.2.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
