@@ -13,14 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
-}
-
-model Post {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  title   String  @unique
-  content String?
+model Url {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  originalUrl String   @unique
+  shortId     String   @unique
+  createdAt   DateTime @default(now())
 }
