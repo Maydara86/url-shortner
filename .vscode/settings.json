@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "npm.packageManager": "npm",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.editor.customLabels.patterns": {
+    "**/{layout,page}.tsx": "${dirname} ${filename}",
+    "**/[**]/{layout, page}.tsx": "${dirname(1)} ${filename}",
+    "**/{route}.ts": "${dirname} ${filename}",
+    "**/components/**/index.tsx": "${dirname} - Component"
+  }
+}
