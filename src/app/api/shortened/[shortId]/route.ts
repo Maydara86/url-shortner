@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 
+import { BASE_URL } from "@/lib/constants"
 import prisma from "@/lib/prisma"
 
 export async function GET(
@@ -20,7 +21,10 @@ export async function GET(
       )
     }
 
-    return NextResponse.redirect(urlEntry.originalUrl)
+    return NextResponse.json({
+      originalUrl: urlEntry.originalUrl,
+      shortUrl: `${BASE_URL}/api/shortened/${urlEntry.shortId}`,
+    })
   } catch (error: unknown) {
     console.error(error)
     return NextResponse.json(

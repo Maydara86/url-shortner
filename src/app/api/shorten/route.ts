@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid"
 import { NextResponse } from "next/server"
 
+import { BASE_URL } from "@/lib/constants"
 import prisma from "@/lib/prisma"
 import { urlSchema } from "@/lib/zod"
 
@@ -16,6 +17,16 @@ export async function POST(request: Request) {
       )
     }
 
+    const existingUrl = await prisma.url.findFirst({
+      where: {
+        originalUrl: url,
+      },
+    })
+
+    if (existingUrl) {
+      return NextResponse.json({ error: "URL already exists" }, { status: 409 })
+    }
+
     const shortId = nanoid(6)
 
     const data = await prisma.url.create({
@@ -25,9 +36,8 @@ export async function POST(request: Request) {
       },
     })
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
     return NextResponse.json({
-      shortUrl: `${baseUrl}/${data.shortId}`,
+      shortUrl: `${BASE_URL}/api/shortened/${data.shortId}`,
     })
   } catch (error: unknown) {
     console.error(error)
