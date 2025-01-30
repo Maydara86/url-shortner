@@ -1,5 +1,3 @@
-"use client"
-
 import { type ShortenedURL } from "@/actions/urls"
 import { BASE_URL } from "@/lib/constants"
 
