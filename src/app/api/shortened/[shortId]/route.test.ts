@@ -19,9 +19,9 @@ describe("GET /api/shortened/[shortId]", () => {
     vi.clearAllMocks()
   })
 
-  it("should return original and shortened URLs for valid shortId", async () => {
+  it("should redirect to original URL", async () => {
     const mockUrl = {
-      originalUrl: "https://example.com",
+      originalUrl: "https://example.com/",
       shortId: "abc123",
     }
 
@@ -29,11 +29,9 @@ describe("GET /api/shortened/[shortId]", () => {
 
     const params = { shortId: mockUrl.shortId }
     const response = await GET({} as Request, { params })
-    const data = await response.json()
 
-    expect(response.status).toBe(200)
-    expect(data.originalUrl).toBe(mockUrl.originalUrl)
-    expect(data.shortUrl).toBe(`${BASE_URL}/api/shortened/${mockUrl.shortId}`)
+    expect(response.status).toBe(307)
+    expect(response.headers.get("Location")).toBe(mockUrl.originalUrl)
   })
 
   it("should return 404 for non-existent shortId", async () => {
