@@ -3,8 +3,8 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
-    "Prisma.prisma"
-    // "vitest.explorer"
-    // "ms-playwright.playwright"
+    "Prisma.prisma",
+    "vitest.explorer",
+    "ms-playwright.playwright"
   ]
 }

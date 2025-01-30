@@ -1,5 +1,6 @@
 import { Mock, beforeEach, describe, expect, it, vi } from "vitest"
 
+import { BASE_URL } from "@/lib/constants"
 import prisma from "@/lib/prisma"
 
 import { GET } from "./route"
@@ -13,14 +14,14 @@ vi.mock("@/lib/prisma", () => ({
   },
 }))
 
-describe("GET /api/[shortId]", () => {
+describe("GET /api/shortened/[shortId]", () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it("should redirect to original URL", async () => {
+  it("should return original and shortened URLs for valid shortId", async () => {
     const mockUrl = {
-      originalUrl: "https://example.com/",
+      originalUrl: "https://example.com",
       shortId: "abc123",
     }
 
@@ -28,9 +29,11 @@ describe("GET /api/[shortId]", () => {
 
     const params = { shortId: mockUrl.shortId }
     const response = await GET({} as Request, { params })
+    const data = await response.json()
 
-    expect(response.status).toBe(307)
-    expect(response.headers.get("Location")).toBe(mockUrl.originalUrl)
+    expect(response.status).toBe(200)
+    expect(data.originalUrl).toBe(mockUrl.originalUrl)
+    expect(data.shortUrl).toBe(`${BASE_URL}/api/shortened/${mockUrl.shortId}`)
   })
 
   it("should return 404 for non-existent shortId", async () => {
@@ -42,5 +45,18 @@ describe("GET /api/[shortId]", () => {
 
     expect(response.status).toBe(404)
     expect(data.error).toBe("Short URL not found")
+  })
+
+  it("should return 500 when database query fails", async () => {
+    ;(prisma.url.findUnique as Mock).mockRejectedValue(
+      new Error("Database error")
+    )
+
+    const params = { shortId: "invalid-id" }
+    const response = await GET({} as Request, { params })
+    const data = await response.json()
+
+    expect(response.status).toBe(500)
+    expect(data.error).toBe("Internal server error")
   })
 })
