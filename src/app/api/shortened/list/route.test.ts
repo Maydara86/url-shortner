@@ -3,6 +3,7 @@ import { NextResponse } from "next/server"
 import { Mock, afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { GET } from "@/app/api/shortened/list/route"
+import { BASE_URL } from "@/lib/constants"
 import prisma from "@/lib/prisma"
 
 vi.mock("@/lib/prisma", () => ({
@@ -35,9 +36,7 @@ describe("GET /api/shortened/list", () => {
   })
 
   it("should return paginated urls", async () => {
-    const request = new Request(
-      "http://localhost:3000/api/shortened/list?page=1"
-    )
+    const request = new Request(`${BASE_URL}/api/shortened/list?page=1`)
     const response = await GET(request)
     const data = await response.json()
 
@@ -52,9 +51,7 @@ describe("GET /api/shortened/list", () => {
   })
 
   it("should return second page of urls", async () => {
-    const request = new Request(
-      "http://localhost:3000/api/shortened/list?page=2"
-    )
+    const request = new Request(`${BASE_URL}/api/shortened/list?page=2`)
     const response = await GET(request)
     const data = await response.json()
 
@@ -64,9 +61,7 @@ describe("GET /api/shortened/list", () => {
   })
 
   it("should return error for invalid page parameter", async () => {
-    const request = new Request(
-      "http://localhost:3000/api/shortened/list?page=invalid"
-    )
+    const request = new Request(`${BASE_URL}/api/shortened/list?page=invalid`)
     const response = await GET(request)
     const data = await response.json()
 
@@ -79,9 +74,7 @@ describe("GET /api/shortened/list", () => {
     vi.mocked(prisma.url.findMany).mockResolvedValue([])
     vi.mocked(prisma.url.count).mockResolvedValue(0)
 
-    const request = new Request(
-      "http://localhost:3000/api/shortened/list?page=999"
-    )
+    const request = new Request(`${BASE_URL}/api/shortened/list?page=999`)
     const response = await GET(request)
     const data = await response.json()
 
@@ -94,7 +87,7 @@ describe("GET /api/shortened/list", () => {
       new Error("Database error")
     )
 
-    const request = new Request("http://localhost:3000/api/shortened/list")
+    const request = new Request(`${BASE_URL}/api/shortened/list`)
     const response = await GET(request)
     const data = await response.json()
 

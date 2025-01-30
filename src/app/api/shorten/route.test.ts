@@ -22,7 +22,7 @@ describe("POST /api/shorten", () => {
   })
 
   it("should return 400 for invalid URL", async () => {
-    const request = new Request("http://localhost:3000/api/shorten", {
+    const request = new Request(`${BASE_URL}/api/shorten`, {
       method: "POST",
       body: JSON.stringify({ url: "invalid-url" }),
     })
@@ -42,7 +42,7 @@ describe("POST /api/shorten", () => {
       createdAt: new Date(),
     })
 
-    const request = new Request("http://localhost:3000/api/shorten", {
+    const request = new Request(`${BASE_URL}/api/shorten`, {
       method: "POST",
       body: JSON.stringify({ url: "https://example.com" }),
     })
@@ -63,7 +63,7 @@ describe("POST /api/shorten", () => {
       createdAt: new Date(),
     })
 
-    const request = new Request("http://localhost:3000/api/shorten", {
+    const request = new Request(`${BASE_URL}/api/shorten`, {
       method: "POST",
       body: JSON.stringify({ url: "https://example.com" }),
     })
@@ -80,7 +80,7 @@ describe("POST /api/shorten", () => {
       new Error("Database error")
     )
 
-    const request = new Request("http://localhost:3000/api/shorten", {
+    const request = new Request(`${BASE_URL}/api/shorten`, {
       method: "POST",
       body: JSON.stringify({ url: "https://example.com" }),
     })
