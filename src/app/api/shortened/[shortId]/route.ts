@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 
 import prisma from "@/lib/prisma"
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { shortId: string } }
 ) {
   try {
-    const { shortId } = await params
+    const { shortId } = params
 
     const urlEntry = await prisma.url.findUnique({
       where: { shortId },

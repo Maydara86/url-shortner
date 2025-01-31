@@ -1,6 +1,6 @@
+import { type NextRequest } from "next/server"
 import { Mock, beforeEach, describe, expect, it, vi } from "vitest"
 
-import { BASE_URL } from "@/lib/constants"
 import prisma from "@/lib/prisma"
 
 import { GET } from "./route"
@@ -28,7 +28,7 @@ describe("GET /api/shortened/[shortId]", () => {
     ;(prisma.url.findUnique as Mock).mockResolvedValue(mockUrl)
 
     const params = { shortId: mockUrl.shortId }
-    const response = await GET({} as Request, { params })
+    const response = await GET({} as NextRequest, { params })
 
     expect(response.status).toBe(307)
     expect(response.headers.get("Location")).toBe(mockUrl.originalUrl)
@@ -38,7 +38,7 @@ describe("GET /api/shortened/[shortId]", () => {
     ;(prisma.url.findUnique as Mock).mockResolvedValue(null)
 
     const params = { shortId: "invalid-id" }
-    const response = await GET({} as Request, { params })
+    const response = await GET({} as NextRequest, { params })
     const data = await response.json()
 
     expect(response.status).toBe(404)
@@ -51,7 +51,7 @@ describe("GET /api/shortened/[shortId]", () => {
     )
 
     const params = { shortId: "invalid-id" }
-    const response = await GET({} as Request, { params })
+    const response = await GET({} as NextRequest, { params })
     const data = await response.json()
 
     expect(response.status).toBe(500)
