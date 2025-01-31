@@ -3,15 +3,18 @@ import { expect, test } from "@playwright/test"
 
 test.describe("Home page", () => {
   test("should shorten a URL successfully", async ({ page }) => {
+    const url = `https://${Math.random().toString(36).substring(7)}.com`
     await page.goto("/")
-    await page.fill('input[name="url"]', "https://yahoo.com") // Please change this URL for each test
-    await page.click('button:has-text("Shorten")')
+    await page.fill('input[name="url"]', url)
+    const shortenButton = page.locator('button:has-text("Shorten")')
+    await expect(shortenButton).toBeEnabled()
+    await shortenButton.click()
     await page.waitForTimeout(3000)
-    await page.waitForSelector("table tbody tr")
     const rowText = await page.textContent(
-      "table tbody tr td:nth-child(2) span"
+      "table tbody tr td:nth-child(2) span",
+      { timeout: 5000 }
     )
-    expect(rowText).toContain("yahoo.com") // Please change this URL for each test
+    expect(rowText).toContain(url)
   })
 
   test("should navigate through pagination", async ({ page }) => {

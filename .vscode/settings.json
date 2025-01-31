@@ -14,5 +14,6 @@
     "**/[**]/{layout, page}.tsx": "${dirname(1)} ${filename}",
     "**/{route}.ts": "${dirname} ${filename}",
     "**/components/**/index.tsx": "${dirname} - Component"
-  }
+  },
+  "remote.autoForwardPortsFallback": 0
 }
