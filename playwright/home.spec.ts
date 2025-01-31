@@ -11,8 +11,7 @@ test.describe("Home page", () => {
     await shortenButton.click()
     await page.waitForTimeout(3000)
     const rowText = await page.textContent(
-      "table tbody tr td:nth-child(2) span",
-      { timeout: 5000 }
+      "table tbody tr td:nth-child(2) span"
     )
     expect(rowText).toContain(url)
   })
@@ -24,5 +23,16 @@ test.describe("Home page", () => {
     await expect(page.locator("text=Page 2 of")).toBeVisible()
     await page.click('button:has-text("Previous")')
     await expect(page.locator("text=Page 1 of")).toBeVisible()
+  })
+
+  test("should show an error message when shortening a URL fails", async ({
+    page,
+  }) => {
+    await page.goto("/")
+    await page.fill('input[name="url"]', "ftp://invalid-url")
+    await page.click('button:has-text("Shorten")')
+    await page.waitForSelector("text=Invalid HTTP/HTTPS URL")
+    const toastMessage = page.locator("text=Invalid HTTP/HTTPS URL")
+    await expect(toastMessage).toBeVisible()
   })
 })
