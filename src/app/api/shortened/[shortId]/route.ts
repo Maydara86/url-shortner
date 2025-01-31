@@ -1,13 +1,14 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 import prisma from "@/lib/prisma"
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { shortId: string } }
+  _request: NextRequest,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: { params: { shortId: string } } & any
 ) {
   try {
-    const { shortId } = params
+    const { shortId } = context.params
 
     const urlEntry = await prisma.url.findUnique({
       where: { shortId },

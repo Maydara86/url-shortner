@@ -1,5 +1,3 @@
-import { SearchParams } from "next/dist/server/request/search-params"
-
 import {
   type Pagination as PaginationType,
   type ShortenedURL,
@@ -9,12 +7,7 @@ import { BASE_URL } from "@/lib/constants"
 
 import Pagination from "./pagination"
 
-export default async function UrlsList({
-  searchParams,
-}: {
-  searchParams: SearchParams
-}) {
-  const page = (await Number(searchParams?.page)) || 1
+export default async function UrlsList({ page }: { page: number }) {
   const {
     urls,
     pagination,
