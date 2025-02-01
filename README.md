@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arcube URL Shortening Service
 
-## Getting Started
+A URL shortening service built with Next.js by Mohamed Cherif.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This application provides a simple and efficient way to shorten URLs. It's built using Next.js for both the frontend and backend, leveraging its latest features like server components, client components, Turbopack for bundling, server actions, and the API routes (similar to Express.js). The project also incorporates modern development practices with comprehensive linting, formatting, and testing tools.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Smooth Developer Experience:** Optimized for Visual Studio Code with recommended extensions, non-interfering rules, linting, and code formatting.
+- **URL Listing:** Displays a list of all shortened URLs.
+- **Pagination:** Implements pagination for the URL list.
+- **API Documentation:** API documentation is available in `API-Doc.md` in the root directory.
+  > Note: While OpenAPI and Swagger were considered, compatibility issues with React 19 led to this alternative documentation approach.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- **Frontend/Backend:** Next.js (Full-stack)
+- **Language:** TypeScript (Fully typed)
+- **Database:** MongoDB Atlas
+- **ORM:** Prisma
+- **Validation:** Zod
+- **Short URL Generation:** NanoID
+- **UI Components:** Shadcn
+- **Styling:** Tailwind CSS
+- **Icons:** Lucid-react
+- **Notifications:** Sonner
+- **Linting:** Eslint
+- **Formatting:** Prettier
+- **Unit Testing:** Vitest
+- **End-to-End Testing:** Playwright
+- **Environment Management:** Nvm
+- **Runtime:** Node.js, npm
+- **IDE:** Visual Studio Code
+- **Browser:** Google Chrome
+- **Operating Systems:** Windows 11, Ubuntu (WSL2)
 
-To learn more about Next.js, take a look at the following resources:
+## Application Description
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The home page features an input field that accepts valid URLs (including `http://`, `https://`, IPv4, and IPv6). Upon submission via the "Shorten" button, a toast notification displays a success or error message. Below the form, a message "No URLs shortened yet" is shown when the database is empty. Once URLs are stored, a paginated list (5 items per page) of shortened and original URLs is displayed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Local Development Setup
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  Clone the repository: `git clone <repository_url>`
+2.  `nvm use` if your using Node Version
+3.  Install dependencies: `npm install` or `npm i`
+4.  Create a `.env` file in the root directory and set `NODE_ENV="development"`.
+5.  Generate Prisma client: `npx prisma generate`
+6.  Run the development server: `npm run dev`
+7.  Run unit tests: `vitest --reporter=verbose`
+8.  Run end-to-end tests: `npx playwright test --ui` (You might be prompted to install additional Playwright dependencies.)
