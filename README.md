@@ -40,6 +40,10 @@ This application provides a simple and efficient way to shorten URLs. It's built
 
 The home page features an input field that accepts valid URLs (including `http://`, `https://`, IPv4, and IPv6). Upon submission via the "Shorten" button, a toast notification displays a success or error message. Below the form, a message "No URLs shortened yet" is shown when the database is empty. Once URLs are stored, a paginated list (5 items per page) of shortened and original URLs is displayed.
 
+### Demo Video
+
+Check out the application demo: [Watch on Loom](https://www.loom.com/share/add231c9cfe94584b5a3c6fa216b9437?sid=0cd3096f-88f6-470c-9c65-9cce87fa494c)
+
 ## Local Development Setup
 
 1.  Clone the repository: `git clone <repository_url>`
