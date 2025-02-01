@@ -8,7 +8,7 @@ export async function GET(
   context: { params: { shortId: string } } & any
 ) {
   try {
-    const { shortId } = context.params
+    const { shortId } = await context.params
 
     const urlEntry = await prisma.url.findUnique({
       where: { shortId },
@@ -20,7 +20,6 @@ export async function GET(
         { status: 404 }
       )
     }
-
     return NextResponse.redirect(urlEntry.originalUrl)
   } catch (error: unknown) {
     console.error(error)
